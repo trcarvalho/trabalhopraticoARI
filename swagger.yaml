@@ -1,0 +1,392 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  version: "1.0.0"
+  title: "Swagger ARI"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "ari.swagger.io"
+basePath: "/v1"
+tags:
+- name: "clientes"
+  description: "operacoes sobre os clientes"
+ 
+- name: "instalacoes"
+  description: "Operacoes sobre a instalacao"
+- name: "faturas"
+  description: "operacoes sobre a fatura"
+schemes:
+- "https"
+- "http"
+paths:
+  /v1/clientes:
+    post:
+      tags:
+      - "clientes"
+      summary: "Add a new cliente"
+      description: ""
+      operationId: "Add a new cliente"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Cliente"
+      responses:
+        "405":
+          description: "Invalid input"
+      security:
+      - api_key: []
+    get:
+      tags:
+      - "clientes"
+      summary: "get all client"
+      description: "Add a new cliente"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/Cliente"
+      responses:
+        "405":
+          description: "Invalid input"
+      security:
+      - api_key: []
+  /v1/clientes/{cpf}:
+    get:
+      tags:
+      - "clientes"
+      summary: "Busca cliente pelo cpf"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "cpf"
+        in: "path"
+        required: true
+        type: "string"
+        format: "utf-8"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Cliente"
+        "400":
+          description: "Invalid cpf supplied"
+        "404":
+          description: "client not found"
+      security:
+      - api_key: []
+      
+  /v1/instalacoes:
+    post:
+      tags:
+      - "instalacoes"
+      summary: "Add a new instalacoes"
+      description: ""
+      operationId: "Add a new instalacoes"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/Instalacao"
+      responses:
+        "405":
+          description: "Invalid input"
+      security:
+      - api_key: []
+    get:
+      tags:
+      - "instalacoes"
+      summary: "busca todas as instalacoes"
+      description: "busca todas as instalacoes"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/Instalacao"
+      responses:
+        "405":
+          description: "Invalid input"
+  /v1/instalacoes/cpf/{cpf}:
+    get:
+      tags:
+      - "instalacoes"
+      summary: "busca a instalacao pelo cpf do cliente"
+      description: "busca a instalacao pelo cpf do cliente"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "cpf"
+        in: "path"
+        required: true
+        type: "string"
+        format: "utf-8"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Instalacao"
+        "400":
+          description: "cpf invalido"
+        "404":
+          description: "instalacao não encontrada"
+      security:
+      - api_key: []
+  /v1/instalacoes/{codigo}:
+    get:
+      tags:
+      - "instalacoes"
+      summary: "busca a isntalacao pelo codigo"
+      description: "busca a isntalacao pelo cpf do cliente"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "codigo"
+        in: "path"
+        description: "codigo da instalacao"
+        required: true
+        type: "string"
+        format: "utf-8"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Fatura"
+        "400":
+          description: "codigo invalido"
+        "404":
+          description: "instacacao nao encontrada"
+      security:
+      - api_key: []
+      
+  /v1/faturas:
+    post:
+      tags:
+      - "fatura"
+      summary: "Adiciona uma fatura"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/Fatura"
+      responses:
+        "405":
+          description: "Invalid input"
+      security:
+      - api_key: []
+    get:
+      tags:
+      - "fatura"
+      summary: "busca todas as fatura"
+      description: "busca todas as fatura"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/Fatura"
+      responses:
+        "405":
+          description: "Invalid input"
+      security:
+      - api_key: []
+  /v1/faturas/cpf/{cpf}:
+    get:
+      tags:
+      - "fatura"
+      summary: "busca a fatura pelo cpf do cliente"
+      description: "busca a fatura pelo cpf do cliente"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "cpf"
+        in: "path"
+        description: "document of client to return"
+        required: true
+        type: "string"
+        format: "utf-8"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Fatura"
+        "400":
+          description: "Invalid cpf supplied"
+        "404":
+          description: "fatura nao encontrada"
+      security:
+      - api_key: []
+  /v1/faturas/{codigo}:
+    get:
+      tags:
+      - "fatura"
+      summary: "busca a fatura pelo codigo"
+      description: "busca a fatura pelo pelo codigo"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "codigo"
+        in: "path"
+        description: "codigo da fatura"
+        required: true
+        type: "string"
+        format: "utf-8"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Fatura"
+        "400":
+          description: "codigo invalido"
+        "404":
+          description: "fatura nao encontrada"
+      security:
+      - api_key: []
+
+  
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Endereco:
+    type: "object"
+    required:
+    - "bairro"
+    - "cidade"
+    - "logadouro"
+    - "uf"
+    - "numero"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      bairro:
+        type: "string"
+      cidade:
+        type: "string"
+      logadouro:
+        type: "string"
+      uf:
+        type: "string"
+      numero:
+        type: "integer"
+        format: "int64"
+    xml:
+      name: "Category"
+  Fatura:
+    type: "object"  
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      codigo:
+        type: "string"
+      dataLeitura:
+        type: "string"
+        example: "10/08/2020"
+      dataVencimento:
+        type: "string"
+        example: "10/08/2020"
+      numeroLeitura:
+        type: "integer"
+        format: "int"
+      instalacao:
+        $ref: "#/definitions/Instalacao"
+      valorConta:
+        type: "integer"
+        format: "double"
+  Instalacao:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      dataInstalacao:
+        type: "string"
+        example: "10/08/2020"
+      cliente:
+        $ref: "#/definitions/Cliente"
+        
+      enderecoInstalacao:
+        $ref: "#/definitions/Instalacao"
+      
+      listaFatura:
+        type: "array"
+        items:
+          $ref: "#/definitions/Fatura"
+  Cliente:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      dataNascimento:
+        type: "string"
+        example: "10/08/1991"
+      enderecoCobranca:
+        $ref: "#/definitions/Endereco"
+      cpf:
+        type: "string"
+      listaInstalacao:
+        type: "array"
+        items:
+          $ref: "#/definitions/Instalacao"
+    xml:
+      name: "Cliente"
